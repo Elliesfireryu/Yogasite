@@ -25,7 +25,7 @@ public class HomeController {
 	@Autowired
 	private UserValidator validator;
 	
-	@GetMapping("/login")
+	@GetMapping(value={"/","/login"})
 	public String login(@ModelAttribute("user") User user) {
 		return "index.jsp";
 	}
