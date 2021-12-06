@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Edit User</title>
+		<title>Search</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	    <link rel="stylesheet" href="/style.css">
 	    <script src="/webjars/jquery/jquery.min.js"></script>
@@ -47,29 +47,34 @@
 		</nav>
 		
 		<div class="container-md">
-	    	<table class="table table-hover col bg-white p-3 text-dark bg-opacity-50">
+			<div>
+				<h2>All videos with keyword:</h2>
+			</div>
+			<table class="table table-hover col bg-white p-3 text-dark bg-opacity-50" border = 1>
 				<thead>
-					<tr>
-						<th>Email: </th>
-						<th>Password: </th>
-						<th> </th>
-					</tr>
+			        	<tr>
+			            	<th scope="col">Title</th>
+			            	<th scope="col">Video</th>
+			            	<th scope="col"></th>
+			        	</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><c:out value="${user.email}"/></td>
-						<td><c:out value="${user.password}"/></td>
-						<td><a href="/updateUser/${user.id}" class="btn btn-light">Edit User</a> <a href="/destroyUser/${user.id}" class="btn btn-light">Delete User</a></td>
-					</tr>
+			    	<c:forEach items="${allVideosByVideoTitle}" var="video">
+			        	<tr>
+			            	<td><a class="text-decoration-none" href="/videos/${video.id}"><c:out value="${video.videoTitle}"/></a></td>
+							<td>
+      							<iframe width="1008" height="567" src="${video.videoLink}" title="${video.videoTitle}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      						</td>
+			    		</tr>
+					</c:forEach>
 				</tbody>
 			</table>
+	
+			<nav class="navbar fixed-bottom navbar-light bg-light">
+	 			<div class="container-fluid">
+	   				<a class="navbar-brand" href="/about"> Created by: Jenelle Hanson</a>
+	 			</div>
+			</nav>
 		</div>
-				
-		<nav class="navbar fixed-bottom navbar-light bg-light">
- 			<div class="container-fluid">
-   				<a class="navbar-brand" href="/about"> Created by: Jenelle Hanson</a>
- 			</div>
-		</nav>
-		
 	</body>
 </html>

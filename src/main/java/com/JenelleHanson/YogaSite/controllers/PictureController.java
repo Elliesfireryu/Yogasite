@@ -62,6 +62,7 @@ public class PictureController {
 	public String picUpdate(@PathVariable("id") Long id, Model model, HttpSession session) {
 		Long userId = (Long) session.getAttribute("user__id");
 		if(userId != null) {
+			model.addAttribute("user", this.uServ.findUser(userId));
 			model.addAttribute("picture", this.picServ.findPicture(id));
 			System.out.println(this.picServ.findPicture(id).getProgressPic());
 			return "edit.jsp";

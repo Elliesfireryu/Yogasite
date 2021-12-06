@@ -89,6 +89,17 @@ public class HomeController {
 		}
 	}
 	
+	@GetMapping("/about")
+	public String about(@ModelAttribute("user") User user, Model model, HttpSession session) {
+		Long userId = (Long) session.getAttribute("user__id");
+		if(userId != null) {
+			model.addAttribute("user", this.uServ.findUser(userId));
+			return "about.jsp";
+		} else {
+			return "redirect:/login";
+		}
+	}
+	
 	@GetMapping("/destroyUser/{id}")
 	public String destroy(@PathVariable("id") Long id) {
 		this.uServ.deleteUser(id);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.JenelleHanson.YogaSite.models.User;
 import com.JenelleHanson.YogaSite.models.Video;
@@ -101,6 +102,31 @@ public class VideoController {
 			} else {
 				return "redirect:/videos/{id}";
 			}
+		} else {
+			return "redirect:/login";
+		}
+	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam("video") String videoTitle, Model model, HttpSession session) {//If you need to search anything it is a request parameter
+		Long userId = (Long) session.getAttribute("user__id");
+		if(userId != null) {
+			model.addAttribute("user", this.userServ.findUser(userId));
+			model.addAttribute("allVideosByVideoTitle", this.vidServ.searchVideoTitle(videoTitle));
+			model.addAttribute("video", videoTitle);// you need both the videos and the title
+		return "search.jsp";
+		} else {
+			return "redirect:/login";
+		}
+	}
+	
+	@GetMapping("/topTen")
+	public String topTen(Model model, HttpSession session) {
+		Long userId = (Long) session.getAttribute("user__id");
+		if(userId != null) {
+			model.addAttribute("user", this.userServ.findUser(userId));
+			model.addAttribute("allVideos", vidServ.findTopVideos());
+		return "topTen.jsp";
 		} else {
 			return "redirect:/login";
 		}
