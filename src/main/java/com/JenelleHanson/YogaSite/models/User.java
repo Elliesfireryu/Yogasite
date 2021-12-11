@@ -24,8 +24,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="users")
 public class User {
@@ -47,7 +45,6 @@ public class User {
 	@Transient
 	private String passwordConfirm;
 	
-	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
@@ -65,7 +62,7 @@ public class User {
 	}
 		
 	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-	@JsonIgnore
+//	@JsonIgnore
 	private List<Comment> comments;
 	
 	@ManyToMany(fetch=FetchType.LAZY)

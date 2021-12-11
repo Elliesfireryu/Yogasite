@@ -1,7 +1,5 @@
 package com.JenelleHanson.YogaSite.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -29,15 +27,15 @@ public class CommentController {
 	@GetMapping("/videos/{id}/comments")
 	public String vidComments(@ModelAttribute("comment") Comment comment, @PathVariable("id") Long id, Model model, HttpSession session) {
 		Long userId = (Long) session.getAttribute("user__id");
+		User userToComment = this.uServ.findUser(userId);
+		Comment makeComment = this.commentServ.createComment(comment);
 		if(userId != null) {
 			model.addAttribute("user", this.uServ.findUser(userId));
 			model.addAttribute("allComments", commentServ.allComments());
-			User userToComment = this.uServ.findUser(userId);
-			Comment makeComment = this.commentServ.createComment(comment);
-			this.uServ.userComment(userToComment, makeComment);
-			model.addAttribute("allComments", commentServ.allComments());
 			return "redirect:/videos/{id}";
 		} else {
+			this.uServ.userComment(userToComment, makeComment);
+			model.addAttribute("allComments", commentServ.allComments());
 			return "redirect:/login";
 		}
 	}
