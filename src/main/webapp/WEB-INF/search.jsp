@@ -61,7 +61,7 @@
 				<tbody>
 			    	<c:forEach items="${allVideosByVideoTitle}" var="video">
 			        	<tr>
-			            	<td><a class="text-decoration-none" href="/videos/${video.id}"><c:out value="${video.videoTitle}"/></a></td>
+			            	<td><a class="text-decoration-none btn btn-light" href="/videos/${video.id}"><c:out value="${video.videoTitle}"/></a></td>
 							<td>
       							<iframe width="1008" height="567" src="${video.videoLink}" title="${video.videoTitle}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       						</td>
